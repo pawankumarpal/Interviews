@@ -1,0 +1,96 @@
+Q. Work Experience
+Q. Technology Working?
+Q. Projects worked On?
+Q. What APi work? GraphQl? Default transection type of REST Api
+Q.authO2
+
+Q. Implement Circular Linked List, add elements and delete element from Circular Linked List at given Node:
+int n =2;
+
+SOLUTION:
+class Node{
+		int data;
+		Node next;
+		Node(int x){
+			data =x;
+			next = null;
+			
+		}
+} 
+public static void main(String[] args) {
+		Node head = new Node(1);
+		head.next = new Node(2);//head = head.next;
+		head.next.next= new Node(5);//head = head.next;
+		head.next.next.next= new Node(7);
+		head.next.next.next.next= new Node(9);
+		head.next.next.next.next.next= head;
+		int n =2;
+		dke.DeletedList(head, n);
+	}
+
+	public void DeletedList(Node head, int n) {
+		Node curr = head;
+		for(int i=0;i<n-2;i++) {// Treversing to reach previous element to be deleted //TC:WC: O(N)
+			curr = curr.next;
+		}
+		curr.next = curr.next.next; // Refering previous element to be deleted to +1 Node
+		//TreversalListNode tn = new TreversalListNode();
+		printLinkedList(head);
+	}
+//Print Node Data post Deletion
+	public void printLinkedList(Node head) {
+		String array = "";
+		Node temp = head;
+		do {
+			array=array.concat(temp.data+",");
+			temp =temp.next;
+		}while(temp !=head);
+		array.trim();
+		System.out.println("Post Deletion:"+array);
+	}
+
+O/P:1,5,7,9
+
+Q.
+Input: heights = [6,4,8,5,2,7], queries = [[0,1],[0,3],[2,4],[3,4],[2,2]] 
+If a person is in building i, they can move to any other building j if and only if i < j and heights[i] < heights[j].
+You are also given another array queries where queries[i] = [ai, bi]. On the ith query, Person1 is in building ai while Person2 is in building bi.
+Treverse Find Building where both can meet. If both cannot meet add -1
+
+--Brute Force
+    //TC:O(nxm);
+	 public int[] leftmostBuildingQueries(int[] heights, int[][] queries) {
+	        int queriesLen = queries.length; // length of queries // 5
+	        int heightsLen = heights.length; //length of hights // 6
+
+	        int meetingArray [] = new int [queriesLen]; // Array to Store Left Buildings
+	        int index=0;
+
+	        for(int i=0;i<queriesLen;i++){ // TC-O(n)
+	            if(queries[i][0]==queries[i][1]){ //Checking Person 1 and  Person 2 is in Same building //->
+	                meetingArray[index]=queries[i][0];
+	                index++;
+	                continue;
+	            }else{
+	                int aBuildingHight = heights[queries[i][0]]; // Height of Person 1 building //6->
+	                int bBuildingHight = heights[queries[i][1]]; // Height of Person 1 building//4->
+	                int j = queries[i][0]>queries[i][1]?queries[i][0]:queries[i][1]; // Initiating point of second loop //0->
+	                for(;j<heightsLen;j++){// TC:O(m)
+	                    if(heights[j]>=aBuildingHight && heights[j]>=bBuildingHight){ // building which has hight greater than equals to both Person 1 and Person 2//8 ,[2]
+	                        meetingArray[index]=j; // Inserting in Array//meetingArray=[2]
+	                        index++; //1
+	                        break;
+	                    }
+	                    if(j==heightsLen-1) {  //Corner Case- No Building found and Person 1 Building height greater then Person2 .
+	                        meetingArray[index]=-1;
+	                        index++;
+	                    }
+	                }
+	            }
+	        }
+	        return meetingArray;
+	    }
+
+Output:[2,5,-1,5,2]
+
+
